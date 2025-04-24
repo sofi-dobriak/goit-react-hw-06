@@ -1,8 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
 import s from './SearchBox.module.css';
 import { useId } from 'react';
+import { changeFilter } from '../../redux/filtersSlice';
 
-const SearchBox = ({ value, onFilter }) => {
+const SearchBox = () => {
     const filterInputID = useId();
+
+    const dispatch = useDispatch();
+
+    const handleFilterChange = e => {
+        dispatch(changeFilter(e.target.value));
+    };
+
     return (
         <section className={s.searchFormSection}>
             <label className={s.label} htmlFor={filterInputID}>
@@ -12,8 +21,7 @@ const SearchBox = ({ value, onFilter }) => {
                 className={s.input}
                 placeholder='Mark'
                 id={filterInputID}
-                value={value}
-                onChange={e => onFilter(e.target.value)}
+                onChange={handleFilterChange}
             ></input>
         </section>
     );
